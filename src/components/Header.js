@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export default function Header() {
     return (
         <Nav>
-            <Logo src="" />
+            <Logo src="/images/logo.svg" />
             <NavMenu>
 
             </NavMenu>
@@ -20,5 +20,5 @@ const Logo = styled.img`
     width: 80px;
 `
 const NavMenu = styled.div`
-    
+
 `
