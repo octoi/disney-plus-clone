@@ -18,7 +18,6 @@ export default function Login() {
 
 const Container = styled.div`
     height: calc(100vh - 70px);
-    /* padding: 0 calc(3.5vw + 5px); */
     position: relative;
     display: flex;
     align-items: center;
@@ -35,12 +34,13 @@ const Container = styled.div`
         right: 0;
         content: "";
         background-image: url("/images/login-background.jpg");
+        opacity: 0.7;
         z-index: -1;
     }
 `
 
 const CTA = styled.div`
-    max-width: 650px;
+    max-width: 850px;
     padding: 80px 40px;
     width: 90%;
     display: flex;
