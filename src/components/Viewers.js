@@ -5,10 +5,10 @@ export default function Viewers() {
     return (
         <Container>
             <ViewerItem image="/images/viewers-disney.png" />
-            <ViewerItem image="/images/viewers-disney.png" />
-            <ViewerItem image="/images/viewers-disney.png" />
-            <ViewerItem image="/images/viewers-disney.png" />
-            <ViewerItem image="/images/viewers-disney.png" />
+            <ViewerItem image="/images/viewers-pixar.png" />
+            <ViewerItem image="/images/viewers-marvel.png" />
+            <ViewerItem image="/images/viewers-starwars.png" />
+            <ViewerItem image="/images/viewers-national.png" />
         </Container>
     )
 }
