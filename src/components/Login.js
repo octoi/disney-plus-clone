@@ -6,6 +6,7 @@ export default function Login() {
         <Container>
             <CTA>
                 <CTALogoOne src="/images/cta-logo-one.svg" />
+                <SignUp>GET ALL THERE</SignUp>
             </CTA>
         </Container>
     )
@@ -37,7 +38,29 @@ const Container = styled.div`
 const CTA = styled.div`
     max-width: 650px;
     padding: 80px 40px;
-    width: 70%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
 `;
 
 const CTALogoOne = styled.img``;
+
+const SignUp = styled.a`
+    width: 100%;
+    background-color: #0063e5;
+    font-weight: bold;
+    padding: 17px 0;
+    color: #f9f9f9;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 250ms;
+    letter-spacing: 1.5px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+
+    &:hover {
+        background-color: #0483ee;
+    }
+`
