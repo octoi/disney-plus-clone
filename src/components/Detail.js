@@ -26,6 +26,12 @@ export default function Detail() {
                     <img src="/images/group-icon.png" />
                 </GroupWatchBtn>
             </Controls>
+            <SubTitle>
+                2018 • 1h 58m • Science Fiction, Family, Animation, Action-Adventure
+            </SubTitle>
+            <Description>
+                While Helen is called on to lead a campaign to bring back the Supers, Bob navigates the day-to-day heroics of “normal” life at home with Violet, Dash and Jack-Jack, whose superpowers are about to be discovered. Their mission is derailed, however, when a new villain emerges with a brilliant and dangerous plot that threatens everything. But with Frozone by their side, the Parrs can take on anything.
+            </Description>
         </Container>
     )
 }
@@ -115,3 +121,6 @@ const AddBtn = styled.button`
 const GroupWatchBtn = styled(AddBtn)`
     background: black;
 `;
+
+const SubTitle = styled.div``;
+const Description = styled.div``;
