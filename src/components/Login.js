@@ -4,7 +4,9 @@ import styled from 'styled-components';
 export default function Login() {
     return (
         <Container>
-            Login
+            <CTA>
+                <CTALogoOne src="/images/cta-logo-one.svg" />
+            </CTA>
         </Container>
     )
 }
@@ -13,6 +15,9 @@ const Container = styled.div`
     height: calc(100vh - 70px);
     /* padding: 0 calc(3.5vw + 5px); */
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:before {
         position: absolute;
@@ -28,3 +33,11 @@ const Container = styled.div`
         z-index: -1;
     }
 `
+
+const CTA = styled.div`
+    max-width: 650px;
+    padding: 80px 40px;
+    width: 70%;
+`;
+
+const CTALogoOne = styled.img``;
