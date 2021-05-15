@@ -13,7 +13,8 @@ export default function useMovieData() {
     const [trending, setTrending] = useState([]);
     const [originals, setOriginals] = useState([]);
 
-    // checking if any array is empty
+    const allMovies = Object.keys(movieData.movies);
+
     if (recommended.length === 0) {
         const movies = Object.keys(movieData.movies);
 
@@ -31,6 +32,6 @@ export default function useMovieData() {
         });
     }
 
-    return { recommended, latest, trending, originals }
+    return { recommended, latest, trending, originals, allMovies }
 
 }
