@@ -18,6 +18,8 @@ export default function ImgSlider() {
         <Carousel {...settings}>
             <CarouselItem image="/images/slider-badging.jpg" />
             <CarouselItem image="/images/slider-badag.jpg" />
+            <CarouselItem image="/images/slider-scale.jpg" />
+            <CarouselItem image="/images/slider-scales.jpg" />
         </Carousel>
     )
 }
