@@ -28,7 +28,9 @@ const MovieWrapper = ({ movies, title }) => (
     </div>
 )
 
-const Container = styled.div``
+const Container = styled.div`
+    margin-bottom: 40px;
+`
 
 const Content = styled.div`
     display: grid;
