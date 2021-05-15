@@ -1,5 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import movieData from './data.json';
+
+function addMe(movie, movieList) {
+    const categoryMovie = movieList;
+    categoryMovie.push(movie);
+    return categoryMovie;
+}
 
 export default function useMovieData() {
     const [recommended, setRecommended] = useState([]);
@@ -7,31 +13,20 @@ export default function useMovieData() {
     const [trending, setTrending] = useState([]);
     const [originals, setOriginals] = useState([]);
 
-    useEffect(() => {
+    // checking if any array is empty
+    if (recommended.length === 0) {
         const movies = Object.keys(movieData.movies);
 
         movies.map(movieId => {
             const movie = movieData.movies[movieId];
+            const type = movie.type;
 
-            switch (movie.type) {
-                case "recommend":
-                    setRecommended([...recommended, movie]);
-                    break;
-                case "new":
-                    setLatest([...latest, movie]);
-                    break;
-                case "trending":
-                    setTrending([...trending, movie]);
-                    break;
-                case "original":
-                    setOriginals([...originals, movie]);
-                    break;
-                default:
-                    console.log(movie)
-            }
-        })
-
-    }, []);
+            if (type === "recommend") setRecommended(addMe(movie, recommended));
+            if (type === "new") setLatest(addMe(movie, latest));
+            if (type === "trending") setTrending(addMe(movie, trending));
+            if (type === "original") setOriginals(addMe(movie, originals));
+        });
+    }
 
     return { recommended, latest, trending, originals }
 
