@@ -1,25 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
+import useData from '../utils/useData';
 
 export default function Movies() {
+    const { recommended, latest, originals, trending } = useData();
+
     return (
         <Container>
-            <h4>Recommended For You</h4>
-            <Content>
-                <MovieComponent />
-                <MovieComponent />
-                <MovieComponent />
-                <MovieComponent />
-            </Content>
+            <MovieWrapper title="Recommended For You" movies={recommended} />
+            <MovieWrapper title="New to Disney+" movies={latest} />
+            <MovieWrapper title="Originals" movies={originals} />
+            <MovieWrapper title="Trending" movies={trending} />
         </Container>
     )
 }
 
-const MovieComponent = ({ image }) => (
-    <Wrap>
-        <img src={image ? image : "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/49B92C046117E89BC9243A68EE277A3B30D551D4599F23C10BF0B8C1E90AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg"} />
-    </Wrap>
-);
+const MovieWrapper = ({ movies, title }) => (
+    <div>
+        <h4>{title}</h4>
+        <Content>
+            {movies.map((movie, idx) => (
+                <Wrap key={idx}>
+                    <img src={movie.cardImg} alt={movie.title} />
+                </Wrap>
+            ))}
+        </Content>
+    </div>
+)
 
 const Container = styled.div``
 
