@@ -1,37 +1,44 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import rawMovieData from '../utils/data.json';
+import { useParams } from 'react-router-dom';
 
 export default function Detail() {
+    const [movie, setMovie] = useState();
+    const { movie: movieId } = useParams();
+
+    useEffect(() => {
+        setMovie(rawMovieData.movies[movieId])
+    }, [movie])
+
     return (
         <Container>
             <Background>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/B409C2A425D58C32D822EB633C7CAE3DC910DC2FC62D2B1807A0BB092C531E9A/scale?width=1440&aspectRatio=1.78&format=jpeg" />
+                <img src={movie?.backgroundImg} alt={movie?.title} />
             </Background>
             <ImageTitle>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/2041CE26663867FC4EF20377B8625BD629E619452E23BCDB1AB259DD475C2EA1/scale?width=1440&aspectRatio=1.78" />
+                <img src={movie?.titleImg} alt={movie?.title} />
             </ImageTitle>
-            <Controls>
-                <PlayBtn>
-                    <img src="/images/play-icon-black.png" />
-                    <span>PLAY</span>
-                </PlayBtn>
-                <TrailerBtn>
-                    <img src="/images/play-icon-white.png" />
-                    <span>TRAILER</span>
-                </TrailerBtn>
-                <AddBtn>
-                    <span>+</span>
-                </AddBtn>
-                <GroupWatchBtn>
-                    <img src="/images/group-icon.png" />
-                </GroupWatchBtn>
-            </Controls>
-            <SubTitle>
-                2018 • 1h 58m • Science Fiction, Family, Animation, Action-Adventure
-            </SubTitle>
-            <Description>
-                While Helen is called on to lead a campaign to bring back the Supers, Bob navigates the day-to-day heroics of “normal” life at home with Violet, Dash and Jack-Jack, whose superpowers are about to be discovered. Their mission is derailed, however, when a new villain emerges with a brilliant and dangerous plot that threatens everything. But with Frozone by their side, the Parrs can take on anything.
-            </Description>
+            <Content>
+                <Controls>
+                    <PlayBtn>
+                        <img src="/images/play-icon-black.png" alt="play" />
+                        <span>PLAY</span>
+                    </PlayBtn>
+                    <TrailerBtn>
+                        <img src="/images/play-icon-white.png" alt="trailer" />
+                        <span>TRAILER</span>
+                    </TrailerBtn>
+                    <AddBtn>
+                        <span>+</span>
+                    </AddBtn>
+                    <GroupWatchBtn>
+                        <img src="/images/group-icon.png" alt="watch together" />
+                    </GroupWatchBtn>
+                </Controls>
+                <SubTitle>{movie?.subTitle}</SubTitle>
+                <Description>{movie?.description}</Description>
+            </Content>
         </Container>
     )
 }
@@ -40,6 +47,10 @@ const Container = styled.div`
     height: calc(100vh - 70px);
     padding: 0 calc(3.5vw + 5px);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 `;
 
 const Background = styled.div`
@@ -58,11 +69,16 @@ const Background = styled.div`
     }
 `
 
+const Content = styled.div`
+    max-width: 874px;
+`
+
 const ImageTitle = styled.div`
     height: 30vh;
     width: 35vw;
     min-height: 170px;
     min-width: 200px;
+    margin-bottom: 30px;    
 
     img {
         width: 100%;
@@ -136,3 +152,4 @@ const Description = styled.div`
     color: rgb(249, 249, 249);
     max-width: 760px;
 `;
+
