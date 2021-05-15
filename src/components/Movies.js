@@ -20,7 +20,7 @@ const MovieWrapper = ({ movies, title }) => (
         <h4>{title}</h4>
         <Content>
             {movies.map((movie, idx) => (
-                <Wrap key={idx}>
+                <Wrap key={idx} onClick={() => window.location.href = `/detail/${movie.id}`}>
                     <img src={movie.cardImg} alt={movie.title} />
                 </Wrap>
             ))}
