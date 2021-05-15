@@ -12,10 +12,11 @@ export default function useMovieData() {
     const [latest, setLatest] = useState([]);
     const [trending, setTrending] = useState([]);
     const [originals, setOriginals] = useState([]);
-    const [movies, setMovies] = useState([])
 
-    if (movies.length === 0) {
-        setMovies(Object.keys(movieData))
+    const allMovies = Object.keys(movieData);
+
+    if (recommended.length === 0) {
+        const movies = Object.keys(movieData);
 
         movies.map(movieId => {
             const movie = {
@@ -31,6 +32,6 @@ export default function useMovieData() {
         });
     }
 
-    return { recommended, latest, trending, originals, movies }
+    return { recommended, latest, trending, originals, allMovies }
 
 }
