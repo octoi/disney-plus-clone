@@ -18,7 +18,10 @@ export default function useMovieData() {
         const movies = Object.keys(movieData.movies);
 
         movies.map(movieId => {
-            const movie = movieData.movies[movieId];
+            const movie = {
+                ...movieData.movies[movieId],
+                id: movieId
+            };
             const type = movie.type;
 
             if (type === "recommend") setRecommended(addMe(movie, recommended));
