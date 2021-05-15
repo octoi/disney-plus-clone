@@ -7,6 +7,7 @@ export default function Detail() {
     const [movie, setMovie] = useState();
     const { movie: movieId } = useParams();
 
+
     useEffect(() => {
         setMovie(rawMovieData.movies[movieId])
     }, [movie])
