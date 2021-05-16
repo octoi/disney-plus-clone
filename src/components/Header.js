@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { selectUserName, selectUserPhoto, setUserLogin } from '../features/user/userSlice';
+import { selectUserName, selectUserPhoto, setUserLogin, setSignOut } from '../features/user/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth, provider } from '../firebase';
+import { useHistory } from 'react-router-dom';
 
 export default function Header() {
     const dispatch = useDispatch();
     const userName = useSelector(selectUserName);
     const userPhoto = useSelector(selectUserPhoto);
+
+    const history = useHistory();
 
     const signIn = () => {
         auth.signInWithPopup(provider).then(loginData => {
@@ -20,6 +23,13 @@ export default function Header() {
         }).catch(err => {
             alert("Oops something went wrong !!")
             console.log(err)
+        })
+    }
+
+    const signOut = () => {
+        auth.signOut().then(() => {
+            dispatch(setSignOut());
+            history.push("/login")
         })
     }
 
@@ -36,7 +46,7 @@ export default function Header() {
                         <NavItem image="/images/movie-icon.svg" title="MOVIES" />
                         <NavItem image="/images/series-icon.svg" title="SERIES" />
                     </NavMenu>
-                    <UserImg src={userPhoto} />
+                    <UserImg onClick={signOut} src={userPhoto} />
                 </>
             ) : (
                 <Login onClick={signIn}>Login</Login>
