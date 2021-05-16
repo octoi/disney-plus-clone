@@ -11,15 +11,21 @@ export default function Header() {
     return (
         <Nav>
             <Logo src="/images/logo.svg" />
-            <NavMenu>
-                <NavItem image="/images/home-icon.svg" title="HOME" />
-                <NavItem image="/images/search-icon.svg" title="SEARCH" />
-                <NavItem image="/images/watchlist-icon.svg" title="WATCHLIST" />
-                <NavItem image="/images/original-icon.svg" title="ORIGINALS" />
-                <NavItem image="/images/movie-icon.svg" title="MOVIES" />
-                <NavItem image="/images/series-icon.svg" title="SERIES" />
-            </NavMenu>
-            <UserImg src="https://avatars.githubusercontent.com/u/82007161?s=200&v=4" />
+            {userName ? (
+                <>
+                    <NavMenu>
+                        <NavItem image="/images/home-icon.svg" title="HOME" />
+                        <NavItem image="/images/search-icon.svg" title="SEARCH" />
+                        <NavItem image="/images/watchlist-icon.svg" title="WATCHLIST" />
+                        <NavItem image="/images/original-icon.svg" title="ORIGINALS" />
+                        <NavItem image="/images/movie-icon.svg" title="MOVIES" />
+                        <NavItem image="/images/series-icon.svg" title="SERIES" />
+                    </NavMenu>
+                    <UserImg src="https://avatars.githubusercontent.com/u/82007161?s=200&v=4" />
+                </>
+            ) : (
+                <Login>Login</Login>
+            )}
 
         </Nav>
     )
@@ -39,10 +45,7 @@ const Nav = styled.nav`
     align-items: center;
     padding: 0 36px;
     overflow-x: hidden;
-
-    @media (max-width: 850px){
-        justify-content: space-between;
-    }
+    justify-content: space-between;
 `
 
 const Logo = styled.img`
@@ -103,4 +106,21 @@ const UserImg = styled.img`
     height: 48px;
     border-radius: 50%;
     cursor: pointer;
+`
+
+const Login = styled.div`
+    cursor: pointer;
+    border: 1px solid #f9f9f9;
+    padding: 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background-color: rgb(0, 0, 0, 0.6);
+    transition: all 0.2s ease 0s;
+
+    &:hover {
+        background-color: #f9f9f9;
+        color: black;
+        border-color: transparent;
+    }
 `
