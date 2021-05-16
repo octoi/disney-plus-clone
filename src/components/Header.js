@@ -1,5 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
+import { useEffect } from 'react';
 import { selectUserName, selectUserPhoto, setUserLogin, setSignOut } from '../features/user/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth, provider } from '../firebase';
@@ -12,6 +12,24 @@ export default function Header() {
 
     const history = useHistory();
 
+    const redirectUser = () => {
+        if (window.location.pathname === "/login") {
+            history.push("/");
+        }
+    }
+
+    useEffect(() => {
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) return;
+            dispatch(setUserLogin({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            }));
+            redirectUser();
+        });
+    }, [])
+
     const signIn = () => {
         auth.signInWithPopup(provider).then(loginData => {
             let user = loginData.user;
@@ -20,7 +38,7 @@ export default function Header() {
                 email: user.email,
                 photo: user.photoURL,
             }));
-            history.push("/")
+            redirectUser();
         }).catch(err => {
             alert("Oops something went wrong !!")
             console.log(err)
