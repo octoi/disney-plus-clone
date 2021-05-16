@@ -20,6 +20,7 @@ export default function Header() {
                 email: user.email,
                 photo: user.photoURL,
             }));
+            history.push("/")
         }).catch(err => {
             alert("Oops something went wrong !!")
             console.log(err)
