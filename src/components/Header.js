@@ -21,7 +21,7 @@ export default function Header() {
                         <NavItem image="/images/movie-icon.svg" title="MOVIES" />
                         <NavItem image="/images/series-icon.svg" title="SERIES" />
                     </NavMenu>
-                    <UserImg src="https://avatars.githubusercontent.com/u/82007161?s=200&v=4" />
+                    <UserImg src={userPhoto} />
                 </>
             ) : (
                 <Login>Login</Login>
