@@ -1,40 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
+import { selectUserName, selectUserPhoto } from '../features/user/userSlice';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+
+    const userName = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
+
     return (
         <Nav>
             <Logo src="/images/logo.svg" />
             <NavMenu>
-                <a>
-                    <img src="/images/home-icon.svg" />
-                    <span>HOME</span>
-                </a>
-                <a>
-                    <img src="/images/search-icon.svg" />
-                    <span>SEARCH</span>
-                </a>
-                <a>
-                    <img src="/images/watchlist-icon.svg" />
-                    <span>WATCHLIST</span>
-                </a>
-                <a>
-                    <img src="/images/original-icon.svg" />
-                    <span>ORIGINALS</span>
-                </a>
-                <a>
-                    <img src="/images/movie-icon.svg" />
-                    <span>MOVIES</span>
-                </a>
-                <a>
-                    <img src="/images/series-icon.svg" />
-                    <span>SERIES</span>
-                </a>
+                <NavItem image="/images/home-icon.svg" title="HOME" />
+                <NavItem image="/images/search-icon.svg" title="SEARCH" />
+                <NavItem image="/images/watchlist-icon.svg" title="WATCHLIST" />
+                <NavItem image="/images/original-icon.svg" title="ORIGINALS" />
+                <NavItem image="/images/movie-icon.svg" title="MOVIES" />
+                <NavItem image="/images/series-icon.svg" title="SERIES" />
             </NavMenu>
             <UserImg src="https://avatars.githubusercontent.com/u/82007161?s=200&v=4" />
+
         </Nav>
     )
 }
+
+const NavItem = ({ title, image }) => (
+    <a href="https://youtu.be/dQw4w9WgXcQ" style={{ color: "rgb(249, 249, 249)", textDecoration: "none" }}>
+        <img src={image} alt={title} />
+        <span>{title}</span>
+    </a>
+);
 
 const Nav = styled.nav`
     height: 70px;
