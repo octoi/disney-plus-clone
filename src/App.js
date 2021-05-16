@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Detail from './components/Detail';
 import Login from './components/Login';
+import AuthProtected from './utils/AuthProtected';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
@@ -13,13 +14,17 @@ function App() {
                 <Header />
                 <Switch>
                     <Route path="/" exact>
-                        <Home />
+                        <AuthProtected>
+                            <Home />
+                        </AuthProtected>
                     </Route>
                     <Route path="/login" exact>
                         <Login />
                     </Route>
                     <Route path="/detail/:movie" exact>
-                        <Detail />
+                        <AuthProtected>
+                            <Detail />
+                        </AuthProtected>
                     </Route>
                 </Switch>
             </Router>

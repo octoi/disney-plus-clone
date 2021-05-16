@@ -1,40 +1,86 @@
-import React from 'react';
 import styled from 'styled-components';
+import { useEffect } from 'react';
+import { selectUserName, selectUserPhoto, setUserLogin, setSignOut } from '../features/user/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { auth, provider } from '../firebase';
+import { useHistory } from 'react-router-dom';
 
 export default function Header() {
+    const dispatch = useDispatch();
+    const userName = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
+
+    const history = useHistory();
+
+    const redirectUser = () => {
+        if (window.location.pathname === "/login") {
+            history.push("/");
+        }
+    }
+
+    useEffect(() => {
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) return;
+            dispatch(setUserLogin({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            }));
+            redirectUser();
+        });
+    }, [])
+
+    const signIn = () => {
+        auth.signInWithPopup(provider).then(loginData => {
+            let user = loginData.user;
+            dispatch(setUserLogin({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            }));
+            redirectUser();
+        }).catch(err => {
+            alert("Oops something went wrong !!")
+            console.log(err)
+        })
+    }
+
+    const signOut = () => {
+        auth.signOut().then(() => {
+            dispatch(setSignOut());
+            history.push("/login")
+        })
+    }
+
     return (
         <Nav>
             <Logo src="/images/logo.svg" />
-            <NavMenu>
-                <a>
-                    <img src="/images/home-icon.svg" />
-                    <span>HOME</span>
-                </a>
-                <a>
-                    <img src="/images/search-icon.svg" />
-                    <span>SEARCH</span>
-                </a>
-                <a>
-                    <img src="/images/watchlist-icon.svg" />
-                    <span>WATCHLIST</span>
-                </a>
-                <a>
-                    <img src="/images/original-icon.svg" />
-                    <span>ORIGINALS</span>
-                </a>
-                <a>
-                    <img src="/images/movie-icon.svg" />
-                    <span>MOVIES</span>
-                </a>
-                <a>
-                    <img src="/images/series-icon.svg" />
-                    <span>SERIES</span>
-                </a>
-            </NavMenu>
-            <UserImg src="https://avatars.githubusercontent.com/u/82007161?s=200&v=4" />
+            {userName ? (
+                <>
+                    <NavMenu>
+                        <NavItem image="/images/home-icon.svg" title="HOME" />
+                        <NavItem image="/images/search-icon.svg" title="SEARCH" />
+                        <NavItem image="/images/watchlist-icon.svg" title="WATCHLIST" />
+                        <NavItem image="/images/original-icon.svg" title="ORIGINALS" />
+                        <NavItem image="/images/movie-icon.svg" title="MOVIES" />
+                        <NavItem image="/images/series-icon.svg" title="SERIES" />
+                    </NavMenu>
+                    <UserImg onClick={signOut} src={userPhoto} />
+                </>
+            ) : (
+                <Login onClick={signIn}>Login</Login>
+            )}
+
         </Nav>
     )
 }
+
+const NavItem = ({ title, image }) => (
+    <a href="https://youtu.be/dQw4w9WgXcQ" style={{ color: "rgb(249, 249, 249)", textDecoration: "none" }}>
+        <img src={image} alt={title} />
+        <span>{title}</span>
+    </a>
+);
 
 const Nav = styled.nav`
     height: 70px;
@@ -43,10 +89,7 @@ const Nav = styled.nav`
     align-items: center;
     padding: 0 36px;
     overflow-x: hidden;
-
-    @media (max-width: 850px){
-        justify-content: space-between;
-    }
+    justify-content: space-between;
 `
 
 const Logo = styled.img`
@@ -107,4 +150,21 @@ const UserImg = styled.img`
     height: 48px;
     border-radius: 50%;
     cursor: pointer;
+`
+
+const Login = styled.div`
+    cursor: pointer;
+    border: 1px solid #f9f9f9;
+    padding: 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background-color: rgb(0, 0, 0, 0.6);
+    transition: all 0.2s ease 0s;
+
+    &:hover {
+        background-color: #f9f9f9;
+        color: black;
+        border-color: transparent;
+    }
 `
