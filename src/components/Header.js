@@ -1,12 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { selectUserName, selectUserPhoto } from '../features/user/userSlice';
-import { useSelector } from 'react-redux';
+import { selectUserName, selectUserPhoto, setUserLogin } from '../features/user/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { auth, provider } from '../firebase';
 
 export default function Header() {
-
+    const dispatch = useDispatch();
     const userName = useSelector(selectUserName);
     const userPhoto = useSelector(selectUserPhoto);
+
+    const signIn = () => {
+        auth.signInWithPopup(provider).then(loginData => {
+            let user = loginData.user;
+            dispatch(setUserLogin({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            }));
+        }).catch(err => {
+            alert("Oops something went wrong !!")
+            console.log(err)
+        })
+    }
 
     return (
         <Nav>
@@ -24,7 +39,7 @@ export default function Header() {
                     <UserImg src={userPhoto} />
                 </>
             ) : (
-                <Login>Login</Login>
+                <Login onClick={signIn}>Login</Login>
             )}
 
         </Nav>
